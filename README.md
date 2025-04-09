@@ -42,21 +42,21 @@ The Grafana dashboard provides real-time insights into the system. It includes:
 - 📄 Real-time logs from API requests
 - 📈 Requests per endpoint over time
 - ⏱ Response time trends
--❗ Error rate percentage
--📊 Request distribution by endpoint
+- ❗ Error rate percentage
+- 📊 Request distribution by endpoint
 ---
 ## 🧪 Testing the System
 To verify that everything is working correctly:
 
 1. Check if the API Server is running
-curl http://localhost:5000/health
+- curl http://localhost:5000/health
 
 2. Check logs in PostgreSQL
-docker exec -it <db-container-name> \
+- docker exec -it <db-container-name> \
   psql -U postgres -d logsdb -c "SELECT * FROM logs;"
 ---
 ## 🧹 Cleanup
 To stop and remove all containers:
-docker-compose down
+- docker-compose down
 
 ---
