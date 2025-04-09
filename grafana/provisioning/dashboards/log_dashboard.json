@@ -1,0 +1,66 @@
+{
+  "id": null,
+  "title": "Log Analytics Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "type": "table",
+      "title": "Real-Time Logs",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT timestamp, level, endpoint, message FROM logs ORDER BY timestamp DESC LIMIT 100",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 10
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Requests per Endpoint Over Time",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT timestamp as time, endpoint, COUNT(*) as count FROM logs GROUP BY endpoint, time ORDER BY time",
+          "refId": "B"
+        }
+      ],
+      "xaxis": {
+        "mode": "time"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 24,
+        "h": 10
+      }
+    },
+    {
+      "type": "bargauge",
+      "title": "Top Errors",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT message, COUNT(*) as occurrences FROM logs WHERE level = 'ERROR' GROUP BY message ORDER BY occurrences DESC LIMIT 5",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 20,
+        "w": 24,
+        "h": 10
+      }
+    }
+  ],
+  "schemaVersion": 30,
+  "version": 1
+}
