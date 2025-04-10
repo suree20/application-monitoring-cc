@@ -44,6 +44,24 @@
     },
     {
       "type": "bargauge",
+      "title": "Top 5 Endpoints",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "table",
+          "rawSql": "SELECT endpoint, COUNT(*) as count FROM logs GROUP BY endpoint ORDER BY count DESC LIMIT 5",
+          "refId": "F"
+        }
+      ],
+      "gridPos": {
+        "x": 8,
+        "y": 40,
+        "w": 8,
+        "h": 8
+      }
+    },
+    {
+      "type": "bargauge",
       "title": "Top Errors",
       "datasource": "PostgreSQL",
       "targets": [
