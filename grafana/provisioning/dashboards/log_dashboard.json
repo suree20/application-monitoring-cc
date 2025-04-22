@@ -14,12 +14,7 @@
           "refId": "A"
         }
       ],
-      "gridPos": {
-        "x": 0,
-        "y": 0,
-        "w": 24,
-        "h": 10
-      }
+      "gridPos": { "x": 0, "y": 0, "w": 24, "h": 10 }
     },
     {
       "type": "graph",
@@ -32,15 +27,8 @@
           "refId": "B"
         }
       ],
-      "xaxis": {
-        "mode": "time"
-      },
-      "gridPos": {
-        "x": 0,
-        "y": 10,
-        "w": 24,
-        "h": 10
-      }
+      "xaxis": { "mode": "time" },
+      "gridPos": { "x": 0, "y": 10, "w": 24, "h": 10 }
     },
     {
       "type": "barchart",
@@ -53,12 +41,7 @@
           "refId": "F"
         }
       ],
-      "gridPos": {
-        "x": 8,
-        "y": 40,
-        "w": 8,
-        "h": 8
-      }
+      "gridPos": { "x": 8, "y": 40, "w": 8, "h": 8 }
     },
     {
       "type": "bargauge",
@@ -71,11 +54,56 @@
           "refId": "C"
         }
       ],
-      "gridPos": {
-        "x": 0,
-        "y": 20,
-        "w": 24,
-        "h": 10
+      "gridPos": { "x": 0, "y": 20, "w": 24, "h": 10 }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Average Response Time by Endpoint",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT $__timeGroupAlias(timestamp, '1m'), endpoint, AVG(response_time) AS avg_response_time FROM logs GROUP BY 1, 2 ORDER BY 1",
+          "refId": "D"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 48, "w": 12, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
+      }
+    },
+    {
+      "type": "timeseries",
+      "title": "Request Count by Endpoint",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT $__timeGroupAlias(timestamp, '1m'), endpoint, COUNT(*) AS request_count FROM logs GROUP BY 1, 2 ORDER BY 1",
+          "refId": "E"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 48, "w": 12, "h": 8 }
+    },
+    {
+      "type": "timeseries",
+      "title": "P95 Response Time",
+      "datasource": "PostgreSQL",
+      "targets": [
+        {
+          "format": "time_series",
+          "rawSql": "SELECT $__timeGroupAlias(timestamp, '1m'), percentile_cont(0.95) WITHIN GROUP (ORDER BY response_time) AS p95_response_time FROM logs GROUP BY 1 ORDER BY 1",
+          "refId": "H"
+        }
+      ],
+      "gridPos": { "x": 12, "y": 56, "w": 12, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        }
       }
     }
   ],

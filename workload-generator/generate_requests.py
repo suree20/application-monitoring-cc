@@ -14,31 +14,47 @@ endpoints = ["/health", "/users", "/orders", "/fail", "/login", "/logout", "/reg
 while True:
     endpoint = random.choice(endpoints)
     start_time = time.time()
-    try:
-        r = requests.get(f"http://api:5000{endpoint}")
-        response_time = (time.time() - start_time) * 1000  # in milliseconds
 
-        log_message = {
-            "timestamp": time.time(),
-            "level": "INFO",
-            "message": f"Called endpoint {endpoint} with status {r.status_code}",
-            "endpoint": endpoint,
-            "status_code": r.status_code,
-            "response_time": response_time
-        }
-        print(log_message["message"])
-    except Exception as e:
-        response_time = (time.time() - start_time) * 1000
+    simulate_error = random.random() < 0.1
+
+    if simulate_error:
+        response_time = (time.time() - start_time) * 1000 
 
         log_message = {
             "timestamp": time.time(),
             "level": "ERROR",
-            "message": f"Request to {endpoint} failed: {str(e)}",
+            "message": f"Manually triggered error for endpoint {endpoint}",
             "endpoint": endpoint,
             "status_code": "error",
             "response_time": response_time
         }
         print(log_message["message"])
+    else:
+        try:
+            r = requests.get(f"http://api:5000{endpoint}")
+            response_time = (time.time() - start_time) * 1000 
+
+            log_message = {
+                "timestamp": time.time(),
+                "level": "INFO",
+                "message": f"Called endpoint {endpoint} with status {r.status_code}",
+                "endpoint": endpoint,
+                "status_code": r.status_code,
+                "response_time": response_time
+            }
+            print(log_message["message"])
+        except Exception as e:
+            response_time = (time.time() - start_time) * 1000
+
+            log_message = {
+                "timestamp": time.time(),
+                "level": "ERROR",
+                "message": f"Request to {endpoint} failed: {str(e)}",
+                "endpoint": endpoint,
+                "status_code": "error",
+                "response_time": response_time
+            }
+            print(log_message["message"])
 
     producer.send('logs', log_message)
     producer.flush()
