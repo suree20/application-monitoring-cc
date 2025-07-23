@@ -4,7 +4,7 @@ This project is a distributed log analytics system that collects, processes, and
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 - **API Server**: A Flask-based server with multiple endpoints for testing.
 - **Workload Generator**: Simulates API requests and sends logs to Kafka.
@@ -14,7 +14,7 @@ This project is a distributed log analytics system that collects, processes, and
 
 ---
 
-## ✅ Features
+## Features
 
 - Real-time log streaming and storage.
 - Monitoring of API usage and performance.
@@ -23,29 +23,29 @@ This project is a distributed log analytics system that collects, processes, and
 
 ---
 
-## 🛠 Prerequisites
+## Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ---
-## 🌐 Accessing Services
+## Accessing Services
 After the containers are up and running, you can access the services at:
 
 - API Server: http://localhost:5000
 - Grafana Dashboard: http://localhost:3000
 Login with default credentials: admin / admin
 ---
-## 📊 Grafana Dashboard
+## Grafana Dashboard
 The Grafana dashboard provides real-time insights into the system. It includes:
 
-- 📄 Real-time logs from API requests
-- 📈 Requests per endpoint over time
-- ⏱ Response time trends
-- ❗ Error rate percentage
-- 📊 Request distribution by endpoint
+- Real-time logs from API requests
+- Requests per endpoint over time
+- Response time trends
+- Error rate percentage
+- Request distribution by endpoint
 ---
-## 🧪 Testing the System
+## Testing the System
 To verify that everything is working correctly:
 
 1. Check if the API Server is running
@@ -55,7 +55,7 @@ To verify that everything is working correctly:
 - docker exec -it <db-container-name> \
   psql -U postgres -d logsdb -c "SELECT * FROM logs;"
 ---
-## 🧹 Cleanup
+## Cleanup
 To stop and remove all containers:
 - docker-compose down
 
